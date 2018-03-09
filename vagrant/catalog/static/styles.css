@@ -1,0 +1,13 @@
+body {
+       font-family: 'Roboto', serif;
+       font-size: 16px;
+     }
+
+.fa-edit:before {
+  color: gray !important;
+}
+
+@media (min-width: 992px)
+.d-lg-inline-block {
+    display: inline-block!important;
+}

@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+{% block content %}
+
+    <h1>{{item.title}}</h1>
+
+
+
+<!--  <textarea name='description' rows='5' cols='80' readonly>{{item.description}} </textarea> -->
+  <p>{{item.description}} </p>
+  <a href='{{url_for('edit_item', item_name=item.title)}}'>Edit</a> |
+  <a href='#'>Delete</a>
+
+
+    {% endblock %}
