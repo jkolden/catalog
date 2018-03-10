@@ -44,7 +44,7 @@ This project uses a virtual machine (VM) to run a SQL database server.
 - https://www.vagrantup.com/downloads.html
 - you should be able to run ```$ vagrant --version``` after installation to see the version that was installed.
 3. Clone this repository: https://github.com/jkolden/catalog.git to a directory on your local machine and then cd into this directory.
-4. cd into the vagrant/ subdirectory
+4. cd into the vagrant subdirectory
 5. Bring the VM up with the command ```vagrant up```
 6. Log into the VM with ```vagrant ssh```
 
