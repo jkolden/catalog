@@ -74,5 +74,7 @@ This project uses a virtual machine (VM) to run a SQL database server.
 7. To logout, simply click the ```logout``` link in the upper right corner.
 
 ### How to use this application's data with another application
-1. This catalog app provides a JSON endpoint that can be consumed as a GET request in any other application.
-2. The endpoint is http://localhost:8000/catalog.json/ and the response payload will be an object of all categories with an array of items belonging to that category.
+This catalog app provides three JSON endpoints that can be consumed as a GET request in any other application:
+- The first endpoint is http://localhost:8000/catalog.json/ and the response payload will be an object of all categories with an array of items belonging to that category.
+- The second endpoint is /<category_name>/catalog.json (e.g. http://localhost:8000/Football/catalog.json) and this provides a list of items within a given catalog.
+- The third and final endpoint is /<category_name>/<item_name>/catalog.json (e.g. http://localhost:8000/Football/Riddell%20Speedflex%20Helmet/catalog.json) and this provides item detail for a specific item.
