@@ -57,7 +57,8 @@ This project uses a virtual machine (VM) to run a SQL database server.
 - You should now see the sportingequipment.db file created inside your vagrant/catalog subdirectory.
 
 ### Run the project.py file
-1. In the vagrant/catalog subdirectory run the project file:
+1. At the ```vagrant@vagrant:~$ ``` prompt, cd into: /vagrant/catalog.
+2. In the /vagrant/catalog subdirectory run the project file:
 - vagrant@vagrant:/vagrant/catalog$ python project.py
 2. You can now access the running application on http://localhost:8000/
 
