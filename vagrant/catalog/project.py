@@ -342,6 +342,24 @@ def catalogJSON():
     return jsonify(serializedCategories)
 
 
+# JSON API to view all items in a category:
+@app.route('/<string:category_name>/catalog.json')
+def itemByCategoryJSON(category_name):
+    category = session.query(Categories).filter_by(name=category_name).first()
+    items = session.query(Items).\
+        filter_by(cat_id=category.id).all()
+    return jsonify(items=[i.serialize for i in items])
+
+
+# JSON API to view item detail:
+@app.route('/<string:category_name>/<string:item_name>/catalog.json')
+def itemCatalogJSON(category_name, item_name):
+    category = session.query(Categories).filter_by(name=category_name).first()
+    item = session.query(Items).\
+        filter_by(cat_id=category.id, title=item_name).first()
+    return jsonify(item.serialize)
+
+
 if __name__ == '__main__':
     app.secret_key = '2KGMYpBfQa_YXBxLnHMkE2-6'
     app.debug = True
