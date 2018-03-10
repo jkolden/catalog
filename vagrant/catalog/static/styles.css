@@ -11,3 +11,13 @@ body {
 .d-lg-inline-block {
     display: inline-block!important;
 }
+
+.login {
+  float: right !important;
+}
+
+.nav-user-pic {
+  height:25px;
+  border-radius:50%;
+  border: solid thin white;
+}

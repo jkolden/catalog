@@ -12,7 +12,9 @@
 {% endfor %}
 </ul>
 
+{% if session['username'] %}
 <a href = '{{url_for('new_category')}}'>Create a New Category</a>
+{% endif %}
 </div>
 
 <div class="col-md-6">
@@ -29,8 +31,9 @@
 </li>
 {% endfor %}
 </ul>
+{% if session['username'] %}
 <a href = '{{url_for('new_item')}}'>Create a New Item</a>
-
+{% endif %}
 
 </div>
 
