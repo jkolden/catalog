@@ -55,4 +55,20 @@ description="Low-profile cantilever pad construction. Built-in clavicle pads for
 session.add(item4)
 session.commit()
 
+# Category for Baseball
+category3 = Categories(user_id=1, name="Baseball")
+session.add(category3)
+session.commit()
+
+#items for soccer
+item5 = Items(user_id=1, title="Rawlings Quatro USA Bat",
+description="""For hitters entering coach or machine pitch leagues, the Rawlings Quatro USSSA Youth Bat is built with a tough alloy and 11 drop weight that gives hitters a lighter swing weight to perform their best.""", categories=category3)
+session.add(item5)
+session.commit()
+
+item6 = Items(user_id=1, title="DeMarini Paradox Two-Tone Batting Helmet",
+description="""The DeMarini Paradox Two-Tone Batting Helmet is designed by the leaders in hitting to appeal to, well, hitters. This helmet has a profile and design any ball player will appreciate. The bill offers optimal sightlines and the padding creates a fit you'll love. Most importantly, the Paradox meets NOCSAE protection standards so you can enter the batter's box with confidence. Also comes in a two-toned rubberrized matte finish that gives it a modern look so you look good at-bat after at-bat.""", categories=category3)
+session.add(item6)
+session.commit()
+
 print "added categories and items!"

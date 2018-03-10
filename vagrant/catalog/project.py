@@ -36,6 +36,7 @@ session = DBSession()
 
 
 # Create anti-forgery state token
+# This code was copied from the Udacity restaurant project
 @app.route('/login')
 def showLogin():
     state = ''.join(
@@ -45,6 +46,7 @@ def showLogin():
     return render_template('login.html', STATE=state)
 
 
+# This code was copied from the Udacity restaurant project
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token
@@ -142,6 +144,7 @@ def gconnect():
 
 
 # User Helper Functions
+# This code was copied from the Udacity restaurant project
 def createUser(login_session):
     newUser = User(name=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
@@ -165,6 +168,7 @@ def getUserID(email):
 
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
+# This code was copied from the Udacity restaurant project
 @app.route('/gdisconnect')
 def gdisconnect():
         # Only disconnect a connected user.
@@ -196,13 +200,16 @@ def gdisconnect():
         return response
 
 
+# homepage of catalog app. Displays all categories and the most recent items
 @app.route('/')
 def category_list():
     categories = session.query(Categories).all()
-    q = session.query(Categories, Items).join(Items).order_by(desc(Items.id)).limit(10)
+    q = session.query(Categories, Items).join(Items).\
+        order_by(desc(Items.id)).limit(10)
     return render_template('index.html', categories=categories,  q=q)
 
 
+# allows the user to create a new item
 @app.route('/newitem/', methods=['GET', 'POST'])
 def new_item():
     if 'username' not in login_session:
@@ -220,15 +227,20 @@ def new_item():
         return render_template('new_item.html', categories=categories)
 
 
+# allows for editing an existing item, assuming user was the item creator
 @app.route('/<string:category_name>/<string:item_name>/edit/',
            methods=['GET', 'POST'])
 def edit_item(category_name, item_name):
-    category = session.query(Categories).filter_by(name=category_name).first()
-    editedItem = session.query(Items).filter_by(cat_id=category.id, title=item_name).first()
+    category = session.query(Categories).\
+        filter_by(name=category_name).first()
+    editedItem = session.query(Items).\
+        filter_by(cat_id=category.id, title=item_name).first()
     if 'username' not in login_session:
         return redirect('/login')
     if editedItem.user_id != login_session['user_id']:
-        return """<script>function myFunction(){alert('You are not authorized to edit this item. Please create your own item in order to edit.');} </script><body onload='myFunction()''>"""
+        return """<script>function myFunction()
+        {alert('You are not authorized to edit this item.');}
+        </script><body onload='myFunction()''>"""
     if request.method == 'POST':
         editedItem.title = request.form['title']
         editedItem.description = request.form['description']
@@ -240,11 +252,13 @@ def edit_item(category_name, item_name):
         return render_template('edit_item.html', category=category, item=item)
 
 
+# allows user to delete an item
 @app.route('/<string:category_name>/<string:item_name>/delete/',
            methods=['GET', 'POST'])
 def delete_item(category_name, item_name):
     category = session.query(Categories).filter_by(name=category_name).first()
-    itemToDelete = session.query(Items).filter_by(cat_id=category.id, title=item_name).first()
+    itemToDelete = session.query(Items).\
+        filter_by(cat_id=category.id, title=item_name).first()
     if 'username' not in login_session:
         return redirect('/login')
     if itemToDelete.user_id != login_session['user_id']:
@@ -262,19 +276,24 @@ def delete_item(category_name, item_name):
                                category=category, item=item)
 
 
+# lists items per category
 @app.route('/<string:name>/')
 def item_list(name):
+    items = []
     categories = session.query(Categories).all()
     category = session.query(Categories).filter_by(name=name).first()
-    items = session.query(Items).filter_by(cat_id=category.id).all()
+    if category:
+        items = session.query(Items).filter_by(cat_id=category.id).all()
     return render_template('items_by_category.html', items=items,
                            categories=categories, category=category)
 
 
+# displays item detail with links to edit/delete
 @app.route('/<string:category_name>/<string:item_name>/')
 def item_detail(category_name, item_name):
     category = session.query(Categories).filter_by(name=category_name).first()
-    item = session.query(Items).filter_by(cat_id=category.id, title=item_name).first()
+    item = session.query(Items).\
+        filter_by(cat_id=category.id, title=item_name).first()
     return render_template('item_detail.html', item=item, category=category)
 
 
@@ -290,6 +309,7 @@ def category_edit(category_id):
         return render_template('category_edit.html', category=category)
 
 
+# allows user to add a new category
 @app.route('/newcategory/', methods=['GET', 'POST'])
 def new_category():
     if 'username' not in login_session:
@@ -304,8 +324,9 @@ def new_category():
         return render_template('category_new.html')
 
 
-# JSON APIs to view Category Information
-# Code help from: https://discussions.udacity.com/t/how-do-you-jsonify-a-master-detail-database-structure/17080/2
+# JSON APIs to view catagories and associated items
+# Code help from: https://discussions.udacity.com
+# /t/how-do-you-jsonify-a-master-detail-database-structure/17080/2
 @app.route('/catalog.json/')
 def catalogJSON():
     categories = session.query(Categories).all()
@@ -313,7 +334,7 @@ def catalogJSON():
     for i in categories:
         serializedItems = []
         new_cat = i.serialize
-        items = session.query(Items).filter_by(cat_id = i.id).all()
+        items = session.query(Items).filter_by(cat_id=i.id).all()
         for j in items:
             serializedItems.append(j.serialize)
         new_cat['items'] = serializedItems
