@@ -48,10 +48,10 @@ This project uses a virtual machine (VM) to run a SQL database server.
 5. Bring the VM up with the command ```vagrant up```
 6. Log into the VM with ```vagrant ssh```
 
-### Create and populate the database:
-1. cd into the vagrant/catalog directory.
-2. This application will come with a prepopulated database named sportingequipment.py
-- If required for this assignment you can delete the sportingequipment.db file from the catalog subdirectory and recreate it by running the following commands at the command line:
+### Create and populate the database (not required):
+1. This application will come with a prepopulated database named sportingequipment.db
+2. If required for this assignment you can delete the sportingequipment.db file from the catalog subdirectory and recreate it by running the following commands at the command line:
+- cd into the vagrant/catalog directory
 - vagrant@vagrant:/vagrant/catalog$ python database_setup1.py
 - vagrant@vagrant:/vagrant/catalog$ python categories.py 
 - You should now see the sportingequipment.db file created inside your vagrant/catalog subdirectory.
